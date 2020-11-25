@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title }} ({{ count }}) | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  {% load thumbnail %}
+  {% for item in news %}
+    {% if forloop.first %}
+      <div class="col-md-12 jumbotron-post">
+        <div class="text-white img-hover-zoom img-rounded">
+          <img src="{% thumbnail item.poster 1280x480 crop quality=100 %}" class="card-img" alt="{{ item.title }}">
+          <div class="card-img-overlay-2">
+            <a href="{{ item.get_absolute_url }}">
+              <h5 class="jumbotron-news-title font-weight-bold">{{ item.title }}</h5>
+            </a>
+            <p class="card-text">{{ item.created|date:"N j, Y • H:i" }}</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <div class="col-md-12 row justify-content-center">
+    <div id="news-list" class="row justify-content-center">
+      {% include 'news/list_ajax.html' %}
+    </div>
+    <button class="load-button btn mb-4 btn-outline-primary">DISCOVER MORE</button>
+  </div>
+{% endblock %}
+
+{% block domready %}
+  var page = 1;
+  var empty_page = false;
+  var block_request = false;
+  $(".load-button").click(function() {
+  if (empty_page == false && block_request == false) {
+  block_request = true;
+  page += 1;
+  $.get('?page=' + page, function(data) {
+  if (data == '') {
+  empty_page = true;
+  } else {
+  block_request = false;
+  $('#news-list').append(data);
+  }
+  });
+  }
+  });
+{% endblock %}
