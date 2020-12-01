@@ -246,7 +246,7 @@ a:hover {
   color: #3a8cc8;
 }
 
-.category-title h6{
+.category-title h6 {
   color: #E8EAEC;
   font-size: 1.1rem;
   transition: color .2s ease-in-out;
@@ -254,4 +254,8 @@ a:hover {
 
 .category-title h6:hover {
   color: #3a8cc8;
+}
+
+.sticky-top {
+  top: 75px
 }

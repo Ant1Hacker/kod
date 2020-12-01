@@ -6,7 +6,7 @@ from news.models import Category, News, Tag
 register = template.Library()
 
 
-@register.inclusion_tag('news/sidebar.html')
+@register.inclusion_tag('news/templatetags/sidebar.html')
 def show_categories():
     categories = Category.objects.annotate(cnt=Count('get_news',
                                                      filter=F('get_news__published'))).filter(cnt__gt=0)

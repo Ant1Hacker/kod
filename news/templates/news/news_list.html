@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load sidebar %}
+{% load news_rating %}
 
 {% block title %}
   {{ title }}
@@ -25,8 +27,10 @@
       <button class="load-button btn mb-4 btn-outline-primary">DISCOVER MORE</button>
     </div>
     <div class="col-md-3">
-      {% include 'inc/_sidebar.html' %}
-      {% include 'inc/_last_news.html' %}
+      {% show_categories %}
+      <div class="sticky-top">
+        {% news_rate %}
+      </div>
     </div>
   </div>
 {% endblock %}

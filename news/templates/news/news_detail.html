@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-
+{% load sidebar %}
+{% load news_rating %}
 
 {% block title %}
   {{ news_item.title }} | {{ block.super }}
@@ -8,7 +9,7 @@
 
 {% block content %}
   {% load thumbnail %}
-  <div class="news-detail-content row">
+  <div class="content news-detail-content row">
     <div class="col-md-9">
       <div class="col-md-12">
         <div class="text-white mb-3 img-rounded">
@@ -34,8 +35,14 @@
       </div>
     </div>
     <div class="col-md-3">
-      {% include 'inc/_sidebar.html' %}
-      {% include 'inc/_last_news.html' %}
+      {% show_categories %}
+      <div class="sticky-top">
+          {% news_rate %}
+      </div>
     </div>
   </div>
+{% endblock %}
+
+{% block domready %}
+
 {% endblock %}
